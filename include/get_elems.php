@@ -7,12 +7,25 @@
 			"`places` AS p,".
 			"`statuses` AS s ".
 		"WHERE e.class = c.id AND e.place = p.id AND e.status = s.id";
+ // Filter by Class
  if (is_numeric($_GET["class"])){
  	$sql .= " AND e.class = '".$_GET["class"]."'";
- } else if (is_numeric($_GET["place"])) {
+ } 
+ // Filter by Place
+ if (is_numeric($_GET["place"])) {
  	$sql .= " AND p.id = '".$_GET["place"]."'";
- } else if (is_numeric($_GET["status"])) {
+ } 
+ // Filter by Status
+ if (is_numeric($_GET["status"])) {
         $sql .= " AND s.id = '".$_GET["status"]."'";
+ }
+ // Search 
+ if (isset($_GET["q"])) {
+	$search = mysql_escape_string($_GET["q"]);
+        $sql .= " AND (".
+			"e.name LIKE '%".$search."%' OR ".
+			"e.description LIKE '%".$search."%'".
+		")";
  }
  $sql = mysql_query($sql);
  while ($elem = mysql_fetch_array($sql)) {
