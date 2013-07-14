@@ -1,0 +1,7 @@
+<?
+// DB config
+$host	 = "";
+$user	 = "";
+$pwd 	 = "";
+$db_name = "";
+?>
